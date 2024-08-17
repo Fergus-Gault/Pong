@@ -1,30 +1,28 @@
 #include "Ball.h"
 #include "Pong.h"
 #include <math.h>
-#include <iostream>
 #include <random>
 
 
 Ball::Ball() {};
 Ball::Ball(float rad) : Entity(rad, rad) {}
+Ball::~Ball() {};
 
 bool Ball::outOfBounds() {
-	if (getPos().x > pong.getWindow().getSize().x || getPos().x < 0) {
-		if (getPos().x > pong.getWindow().getSize().x) {
-			player1.setScore(player1.getScore() + 1);
-		}
-		else if (getPos().x < 0) {
-			player2.setScore(player2.getScore() + 1);
-		}
-		
-		std::cout << "Out of bounds\n";
+	
+	if (getPos().x > pong.getWindow().getSize().x) {
+		player1.setScore(player1.getScore() + 1); // If out on right side
+		return true;
+	}
+	else if (getPos().x < 0) {
+		player2.setScore(player2.getScore() + 1); // If out on left side
 		return true;
 	}
 	return false;
 }
 
 bool Ball::checkCollisionWithBorder() {
-	if (getPos().y > pong.getWindow().getSize().y-getWidth() || getPos().y < 0) {
+	if (getPos().y > pong.getWindow().getSize().y-getWidth() || getPos().y < 0) { // Check if collision with top or bottom of screen
 		return true;
 	}
 	return false;
@@ -42,22 +40,23 @@ bool Ball::checkCollisionWithPlayer() { // Check collision with either player
 
 void Ball::reset() {
 	setIsMoving(false);
-	setPos(pong.getWindow().getSize().x / 2, pong.getWindow().getSize().y / 2);
+	setPos(pong.getWindow().getSize().x / 2, pong.getWindow().getSize().y / 2); // Reset to middle of screen
 	setVelocity(0, 0);
 }
 
 void Ball::update(sf::Time deltaTime) {
-	if (checkCollisionWithPlayer()) {
+	if (checkCollisionWithPlayer()) { // If collision with a player, reverse the velocity on the x-axis
 		setVelocity(-(getVelocity().x), getVelocity().y);
-		increaseVel(10.f);
+		increaseVel(10.f); // Increase the speed of the ball
 	}
-	if (checkCollisionWithBorder()) {
+	if (checkCollisionWithBorder()) { // If collision with the border, reverse the velocity on the y-axis
 		setVelocity(getVelocity().x, -getVelocity().y);
 	}
-	if (outOfBounds()) {
-		pong.reset();
+	if (outOfBounds()) { // If out of bounds reset the balls position
+		pong.reset(); 
 	}
 
+	// Move the ball based on new velocity
 	moveEntity(getVelocity().x * deltaTime.asSeconds(), getVelocity().y * deltaTime.asSeconds());
 }
 
@@ -87,12 +86,13 @@ void Ball::start() {
 
 	int sign = sign_selector(gen) == 0 ? -1 : 1;
 
-	setVelocity(sign * 400, random_number);
+	// Generate a random x and y velocity, either +400 or -400 in x-axis and between -300 to -50 or 50 to 300 in the y-axis
+	setVelocity(sign * 400, random_number); 
 	
 }
 
 void Ball::increaseVel(float vel) {
-	if (getVelocity().x < MAX_VELOCITY) {
+	if (getVelocity().x < MAX_VELOCITY) { // Increase the velocity on collision with a player
 		if (getVelocity().x > 0) {
 			setVelocity(getVelocity().x + vel, getVelocity().y);
 		}
@@ -100,6 +100,5 @@ void Ball::increaseVel(float vel) {
 			setVelocity(getVelocity().x - vel, getVelocity().y);
 		
 		}
-		std::cout << getVelocity().x << '\n';
 	}
 }

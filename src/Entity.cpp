@@ -1,6 +1,5 @@
 #include "Pong.h"
 #include "Entity.h"
-#include <iostream>
 
 Entity::Entity(){};
 

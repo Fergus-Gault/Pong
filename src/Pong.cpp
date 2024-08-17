@@ -20,6 +20,7 @@ void Pong::processEvents() {
 			sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
 			m_window.setView(sf::View(visibleArea));
 		}
+		// If space bar is pressed and ball is in starting state then move the ball
 		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
 			if (!ball.isMoving()) {
 				ball.start();
@@ -75,6 +76,7 @@ void Pong::reset() {
 }
 
 void Pong::startGame() {
+	// Load font
 	if (!m_font.loadFromFile("../assets/font.ttf")) {
 		throw std::runtime_error("Failed to load font");
 	}
@@ -97,7 +99,7 @@ void Pong::startGame() {
 	player1.setPlayer(1);
 	player1.moveEntity(10.f, m_window.getSize().y / 2);
 	player1.setVelocity(0.f, 300.f);
-
+	
 	player2.setPlayer(2);
 	player2.moveEntity(m_window.getSize().x - player2.getWidth() - 10.f, m_window.getSize().y / 2);
 	player2.setVelocity(0.f, 300.f);

@@ -8,9 +8,8 @@ public:
 	Entity(const float width, const float height);
 	Entity(const Entity& copy);
 	void render();
-	void update();
 
-	sf::Vector2f getVelocity() { return m_velocity; }
+	sf::Vector2f& getVelocity() { return m_velocity; }
 	void setVelocity(auto x, auto y) { m_velocity = sf::Vector2f(x,y); }
 
 	sf::Vector2f getPos() { return m_rectangle.getPosition(); }
@@ -20,7 +19,7 @@ public:
 
 	const float getWidth() { return m_width; }
 
-	sf::RectangleShape getRect() { return m_rectangle; }
+	sf::RectangleShape& getRect() { return m_rectangle; }
 
 private:
 	sf::RectangleShape m_rectangle{};

@@ -5,7 +5,7 @@ class Player : public Entity {
 public:
 	Player(const float width, const float height);
 	~Player();
-	void update(sf::Time deltaTime);
+	void update(sf::Time& deltaTime);
 
 	int getScore() { return m_score; }
 	void updateScore() { m_score++; }

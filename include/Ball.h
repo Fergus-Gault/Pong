@@ -6,6 +6,7 @@
 class Ball : public Entity {
 public:
 	Ball();
+	~Ball();
 	Ball(float rad);
 	void update(sf::Time deltaTime);
 

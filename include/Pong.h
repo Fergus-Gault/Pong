@@ -10,12 +10,11 @@ public:
 	Pong();
 	~Pong();
 	void run();
-	const sf::Vector2u getWindowSize() { return m_window.getSize(); }
 	sf::RenderWindow& getWindow() { return m_window; }
 	void reset();
 
-	Text player1Score() { return m_player1Score; }
-	Text player2Score() { return m_player2Score; }
+	Text& player1Score() { return m_player1Score; }
+	Text& player2Score() { return m_player2Score; }
 
 private:
 	sf::Clock m_clock;

@@ -4,6 +4,7 @@
 class Text {
 public:
     Text();
+    ~Text();
     void render();
     void update(int score);
     sf::Text& getText() { return m_text; }
