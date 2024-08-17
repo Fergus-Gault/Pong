@@ -1,8 +1,11 @@
 ﻿#include "Pong.h"
 #include "Player.h"
+#include "Ball.h"
 #include "Entity.h"
 
 Pong::Pong() : m_window(sf::VideoMode(800, 600), "Pong") {}
+
+Pong::~Pong() {}
 
 void Pong::processEvents() {
 
@@ -20,6 +23,7 @@ void Pong::processEvents() {
 }
 Player player1(20.f, 120.f);
 Player player2(20.f, 120.f);
+Ball ball(10.f);
 
 void Pong::run() {
 
@@ -36,6 +40,7 @@ void Pong::run() {
 void Pong::update(sf::Time deltaTime) {
 	player1.update(deltaTime);
 	player2.update(deltaTime);
+	ball.update(deltaTime);
 }
 
 void Pong::render() {
@@ -45,18 +50,31 @@ void Pong::render() {
 
 	player1.render();
 	player2.render();
+	ball.render();
 
 	m_window.display();
 }
 
 
+void Pong::reset() {
+	player1.setPos(10.f, m_window.getSize().y / 2);
+	player2.setPos(m_window.getSize().x - player2.getWidth() - 10.f, m_window.getSize().y / 2);
+	ball.reset();
+}
+
 void Pong::startGame() {
 	player1.setPlayer(1);
-	player1.move(10.f, m_window.getSize().y / 2);
+	player1.moveEntity(10.f, m_window.getSize().y / 2);
+	player1.setVelocity(0.f, 300.f);
 
 
 	player2.setPlayer(2);
-	player2.move(m_window.getSize().x - player2.getWidth() - 10.f, m_window.getSize().y / 2);
+	player2.moveEntity(m_window.getSize().x - player2.getWidth() - 10.f, m_window.getSize().y / 2);
+	player2.setVelocity(0.f, 300.f);
+
+	ball.setPos(m_window.getSize().x / 2, m_window.getSize().y / 2);
+	ball.setVelocity(0, 0);
+
 }
 
 

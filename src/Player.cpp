@@ -2,22 +2,23 @@
 #include <iostream>
 
 Player::Player(const float width, const float height) : Entity(width, height) {};
+Player::~Player() {};
 
 void Player::update(sf::Time deltaTime) {
 	if (getPlayer() == 1) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			move(0.f, -100.f * deltaTime.asSeconds() * getVelocity());
+			moveEntity(0.f, deltaTime.asSeconds() * -getVelocity().y);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			move(0.f, 100.f * deltaTime.asSeconds() * getVelocity());
+			moveEntity(0.f, deltaTime.asSeconds() * getVelocity().y);
 		}
 	}
 	else if (getPlayer() == 2) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			move(0.f, -100.f * deltaTime.asSeconds() * getVelocity());
+			moveEntity(0.f, deltaTime.asSeconds() * -getVelocity().y);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			move(0.f, 100.f * deltaTime.asSeconds() * getVelocity());
+			moveEntity(0.f, deltaTime.asSeconds() * getVelocity().y);
 		}
 	}
 }
