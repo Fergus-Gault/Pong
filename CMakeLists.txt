@@ -20,7 +20,7 @@ set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE 
 find_package(SFML CONFIG REQUIRED COMPONENTS system window graphics network)
 
 # Add source to this project's executable.
-add_executable (Pong "src/Pong.cpp" "include/Pong.h" "src/Entity.cpp" "include/Entity.h" "src/Ball.cpp" "include/Ball.h" "src/Player.cpp" "include/Player.h")
+add_executable (Pong "src/Pong.cpp" "include/Pong.h" "src/Entity.cpp" "include/Entity.h" "src/Ball.cpp" "include/Ball.h" "src/Player.cpp" "include/Player.h" "src/Text.cpp" "include/Text.h")
 
 # Link libraries
 target_link_libraries(Pong PRIVATE sfml-system sfml-window sfml-graphics sfml-network)

@@ -13,9 +13,15 @@ public:
 	bool checkCollisionWithPlayer();
 	bool checkCollisionWithBorder();
 
-	void waitForStart();
+	void start();
 	void reset();
 
+	void increaseVel(float vel);
+	void setIsMoving(bool moving) { m_isMoving = moving; }
+	bool isMoving() { return m_isMoving; }
 private:
 	float m_rad{};
+	const float MAX_VELOCITY{ 800.f };
+	bool m_isMoving{};
 };
+
